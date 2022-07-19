@@ -6,7 +6,7 @@ from sklearn.metrics import accuracy_score
 from xgboost import XGBClassifier
 
 data = pd.read_csv("titanic/train.csv")
-print(data[:5])
+#print(data[:5])
 
 # 不要なカラムを削除する
 data = data.drop(["Name", "Ticket", "Cabin"], axis=1)
@@ -27,15 +27,15 @@ y = data["Survived"]                # yにSurvivedの値を代入
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, train_size=0.8, shuffle=True) # 2:8でdata.dataをテスト用、学習用データに分離する
 
 # SVMに学習データを投入する
-clf = SVC()
-clf.fit(x_train, y_train) # 学習
-#xg = XGBClassifier()
-#xg.fit(x_train, y_train)
+# clf = SVC()
+# clf.fit(x_train, y_train) # 学習
+xg = XGBClassifier()
+xg.fit(x_train, y_train)
 
 
 # テスト、評価する
-#y_pred = xg.predict(x_test) # 学習機が予測した結果
-y_pred = clf.predict(x_test) # 学習機が予測した結果
+#y_pred = clf.predict(x_test) # 学習機が予測した結果
+y_pred = xg.predict(x_test) # 学習機が予測した結果
 
 # 正解率
 print("正解率は？？", accuracy_score(y_test, y_pred))
